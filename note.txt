@@ -1,0 +1,8 @@
+INSTALLATION OF buffer
+
+// After installing it add the following code in the webpack.config.js
+
+resolve: {
+    fallback: {
+      "Buffer": require.resolve('buffer/'),
+    }

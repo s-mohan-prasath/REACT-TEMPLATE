@@ -1,33 +1,11 @@
 import { Button, Input, Textarea } from "@nextui-org/react";
 import React, { useMemo, useState } from "react";
-import { google } from "googleapis";
+// import { onContactFormSubmit } from "../../lib/contact-form";
 /**
  *
- * packages required --> googleapis, @nextui-org/react
- * functions --> initGoogleAPI function,
+ * packages required --> googleapis, @nextui-org/react, buffer [only for pure react project]
  * @returns
  */
-
-// GOOGLE SHEETS OPTIONS
-
-let gSheetId = "187U52Hd6SIuetSR7Sla_7BYB8tJL3saB5bouTvmgDMQ";
-let sheetOptions = {
-  spreadsheetId: gSheetId,
-  insertDataOption: "INSERT_ROWS",
-  valueInputOption: "RAW",
-};
-// GETTING GOOGLE SHEETS API
-
-let getSheetsAPI = async () => {
-  const auth = new google.auth.JWT(
-    process.env.NEXT_PUBLIC_GCLOUD_CLIENT_EMAIL,
-    null,
-    process.env.NEXT_PUBLIC_GCLOUD_PRIVATE_KEY,
-    ["https://www.googleapis.com/auth/spreadsheets"]
-  );
-  const sheetsAPI = google.sheets({ version: "v4", auth: auth });
-  return sheetsAPI;
-};
 
 function ContactForm(props) {
   const [email, setEmail] = useState("");
@@ -41,31 +19,12 @@ function ContactForm(props) {
 
     return validateEmail(email) ? false : true;
   }, [email]);
-  const submitForm = async (event) => {
-    try {
-      await getSheetsAPI().spreadsheets.values.append({
-        ...sheetOptions,
-        range: `contact-form!B2:D`,
-        requestBody: {
-          values: [[name, email, message]],
-        },
-      });
-      alert("Thank you\nWe will get in touch with you soon...");
-    } catch (e) {
-      alert("Could not submit the contact form");
-    }
-  };
   return (
     <div className="w-full">
       <form
-        onSubmitCapture={(e) => {
-          if (email === "" && name === "" && message === "" && isInvalidEmail) {
-            alert("Fill in the fields properly..");
-          } else {
-            e.preventDefault();
-          }
-        }}
-        onSubmit={(event) => submitForm(event)}
+        // onSubmit={(e) =>
+        //   onContactFormSubmit(e, email, name, message, isInvalidEmail)
+        // }
         action=""
         className="flex flex-col items-center max-w-sm gap-2"
       >
