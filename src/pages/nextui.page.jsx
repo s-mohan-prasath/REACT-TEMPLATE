@@ -4,6 +4,7 @@ import ModalForm from "../components/nextui/ModalForm";
 import { Button, useDisclosure } from "@nextui-org/react";
 // NAVBAR CUSTOM COMPONENT
 import NavBarCustom from "../components/nextui/NavBarCustom";
+import ContactForm from "../components/ui/contact.form";
 
 function NextUIPage(props) {
   // FOR MODAL COMPOENENT
@@ -16,7 +17,7 @@ function NextUIPage(props) {
     <div className="flex flex-col gap-5 w-full h-full">
       {/* MODAL COMPONENT */}
       <NavBarCustom />
-      <div className="">
+      <div className="border-b-2 p-5">
         <h2>Modal component</h2>
         <Button onPress={onCustomOpen} color="primary" variant="solid">
           Open Modal
@@ -32,6 +33,10 @@ function NextUIPage(props) {
             state3: "kannappa",
           }}
         />
+      </div>
+      <div className="border-b-2 p-5">
+        <h2>Contact Form</h2>
+        <ContactForm />
       </div>
     </div>
   );
